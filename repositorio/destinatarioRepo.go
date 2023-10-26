@@ -21,7 +21,7 @@ type bancodeDados struct {
 }
 
 func NewDestRepositorio() DestRepositorio {
-	db, erro := gorm.Open("mysql", "nome:senha@/bancodedados?charset=utf8&parseTime=True&loc=Local")
+	db, erro := gorm.Open("mysql", "testando:senhamudada@/testes?charset=utf8&parseTime=True&loc=Local")
 	if erro != nil {
 		log.Fatal("Falha ao estabeler a conexão com o banco de dados")
 	}

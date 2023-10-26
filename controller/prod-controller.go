@@ -10,11 +10,11 @@ import (
 )
 
 type ProdController interface {
-	SaveProd(cxt gin.Context) error
+	SaveProd(cxt *gin.Context) error
 	UpdateProd(ctx *gin.Context) error
 	FindAllProd() []tipos.Produto
 	FindProdId(ctx *gin.Context) (tipos.Produto, error)
-	ShowAllProd(ctx *gin.Context)
+	//ShowAllProd(ctx *gin.Context)
 	DeleteProd(ctx *gin.Context) error
 }
 
@@ -70,9 +70,33 @@ func (c *controller) FindAllProd() []tipos.Produto {
 }
 
 func (c *controller) FindProdId(ctx *gin.Context) (tipos.Produto, error) {
-	var produto tipos.Produto
-	erro := ctx.ShouldBind(&produto)
+	// var produto tipos.Produto
+	// erro := ctx.ShouldBind(&produto)
+	// if erro != nil {
+	//     return tipos.Produto{}, erro
+	// }
+
+	// Implemente a lógica para buscar o produto com base no ID fornecido na solicitação
+	id, erro := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if erro != nil {
+		return tipos.Produto{}, erro
 	}
 
+	produtoEncontrado, erro := c.service.FindProdId(id)
+	if erro != nil {
+		return tipos.Produto{}, erro
+	}
+
+	return produtoEncontrado, nil
+}
+
+func (c *controller) DeleteProd(ctx *gin.Context) error {
+	var produto tipos.Produto
+	id, erro := strconv.ParseInt(ctx.Param("id"), 0, 0)
+	if erro != nil {
+		return erro
+	}
+	produto.ID = id
+	c.service.DeleteProd(produto)
+	return nil
 }

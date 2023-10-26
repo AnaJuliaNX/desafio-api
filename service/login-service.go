@@ -1,7 +1,5 @@
 package service
 
-import "desafio1/tipos"
-
 type LoginService interface {
 	Login(cnpj int64, password string) bool
 }
@@ -13,8 +11,8 @@ type loginService struct {
 
 func NewLoginService() LoginService {
 	return &loginService{
-		authorizedCnpj:     tipos.Empresa.CNPJ,
-		authorizedPassword: tipos.Empresa.Password,
+		authorizedCnpj:     123,
+		authorizedPassword: "teste",
 	}
 }
 

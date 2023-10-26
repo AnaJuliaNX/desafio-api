@@ -9,7 +9,7 @@ type ProdutoService interface {
 	SaveProd(tipos.Produto) tipos.Produto
 	UpdateProd(produto tipos.Produto)
 	FindAllProd() []tipos.Produto
-	FindProdId(produto tipos.Produto) tipos.Produto
+	FindProdId(produto tipos.Produto) (tipos.Produto, error)
 	DeleteProd(produto tipos.Produto)
 }
 
@@ -32,9 +32,9 @@ func (service *produtoService) UpdateProd(produto tipos.Produto) {
 	service.produtoRepositorio.UpdateProd(produto)
 }
 
-func (service *produtoService) FindProdId(produto tipos.Produto) tipos.Produto {
+func (service *produtoService) FindProdId(produto tipos.Produto) (tipos.Produto, error) {
 	service.produtoRepositorio.FindProdId(produto)
-	return produto
+	return produto, nil
 }
 
 func (service *produtoService) FindAllProd() []tipos.Produto {
