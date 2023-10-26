@@ -13,8 +13,6 @@ type DestController interface {
 	SaveDest(cxt *gin.Context) error
 	UpdateDest(ctx *gin.Context) error
 	FindAllDest() []tipos.Destinatario
-	FindDestId(ctx *gin.Context) (tipos.Destinatario, error)
-	//ShowAllProd(ctx *gin.Context)
 	DeleteDest(ctx *gin.Context) error
 }
 
@@ -69,25 +67,6 @@ func (c *controler) FindAllDest() []tipos.Destinatario {
 	return c.service.FindAllDest()
 }
 
-func (c *controller) FindDestId(ctx *gin.Context) (tipos.Destinatario, error) {
-	var dest tipos.Destinatario
-	erro := ctx.ShouldBind(&dest)
-	if erro != nil {
-		return tipos.Destinatario{}, erro
-	}
-
-	// Implemente a lógica para buscar o produto com base no ID fornecido na solicitação
-	id, erro := strconv.ParseInt(ctx.Param("id"), 0, 0)
-	if erro != nil {
-		return tipos.Destinatario{}, erro
-	}
-	produtoEncontrado, erro := c.service.FindDestId(id)
-	if erro != nil {
-		return tipos.Destinatario{}, erro
-	}
-
-	return produtoEncontrado, nil
-}
 func (c *controler) DeleteDest(ctx *gin.Context) error {
 	var destinatario tipos.Destinatario
 	id, erro := strconv.ParseInt(ctx.Param("id"), 0, 0)

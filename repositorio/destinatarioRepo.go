@@ -12,7 +12,6 @@ type DestRepositorio interface {
 	SaveDest(tipos.Destinatario)
 	UpdateDest(dest tipos.Destinatario)
 	FindAllDest() []tipos.Destinatario
-	FindDestId(dest tipos.Destinatario) tipos.Destinatario
 	DeleteDest(dest tipos.Destinatario)
 }
 
@@ -50,12 +49,6 @@ func (db *bancodeDados) FindAllDest() []tipos.Destinatario {
 	var dests []tipos.Destinatario
 	db.connection.Find(&dests)
 	return dests
-}
-
-func (db *bancodeDados) FindDestId(dest tipos.Destinatario) tipos.Destinatario {
-	var desti tipos.Destinatario
-	db.connection.First(&desti, dest.ID)
-	return dest
 }
 
 func (db *bancodeDados) DeleteDest(dest tipos.Destinatario) {

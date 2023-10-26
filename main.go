@@ -2,6 +2,7 @@ package main
 
 import (
 	"desafio1/controller"
+	"desafio1/middlewares"
 	"desafio1/repositorio"
 	"desafio1/service"
 	"net/http"
@@ -42,6 +43,27 @@ func main() {
 			ctx.JSON(http.StatusUnauthorized, nil)
 		}
 	})
+
+	apiRouters := server.Group("/api", middlewares.Autorizacao())
+	{
+		apiRouters.GET("/destinatarios", func(ctx *gin.Context) {
+			ctx.JSON(200, destController.FindAllDest())
+		})
+		apiRouters.POST("/destinatarios", func(ctx *gin.Context) {
+			erro := destController.SaveDest(ctx)
+			if erro != nil {
+				ctx.JSON(http.StatusBadRequest, gin.H{"error": erro.Error()})
+			} else {
+				ctx.JSON(http.StatusOK, gin.H{"message": "Destinatario inserido é válido!"})
+			}
+		})
+		apiRouters.PUT("/destinatarios/:id", func(ctx *gin.Context) {
+			erro := destController.UpdateDest(ctx)
+			if erro != nil {
+				ctx.JSON(http.StatusBadRequest, gin.H{"error": erro.Error()})
+			}
+		})
+	}
 
 	port := os.Getenv("PORT")
 	if port == "" {

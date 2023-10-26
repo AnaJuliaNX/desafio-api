@@ -9,7 +9,6 @@ type DestService interface {
 	SaveDest(tipos.Destinatario) tipos.Destinatario
 	UpdateDest(dest tipos.Destinatario)
 	FindAllDest() []tipos.Destinatario
-	FindDestId(dest tipos.Destinatario) tipos.Destinatario
 	DeleteDest(dest tipos.Destinatario)
 }
 
@@ -30,11 +29,6 @@ func (service *destService) SaveDest(dest tipos.Destinatario) tipos.Destinatario
 
 func (service *destService) UpdateDest(dest tipos.Destinatario) {
 	service.destrepositorio.UpdateDest(dest)
-}
-
-func (service *destService) FindDestId(dest tipos.Destinatario) tipos.Destinatario {
-	service.destrepositorio.FindDestId(dest)
-	return dest
 }
 
 func (service *destService) FindAllDest() []tipos.Destinatario {
