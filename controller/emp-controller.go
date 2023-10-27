@@ -28,6 +28,7 @@ func NewS(service service.EmpService) EmpController {
 	}
 }
 
+// Função para cadastrar uma empresa
 func (c *controll) SaveEmp(ctx *gin.Context) error {
 	var empresa tipos.Empresa
 	erro := ctx.ShouldBindJSON(&empresa)
@@ -42,6 +43,7 @@ func (c *controll) SaveEmp(ctx *gin.Context) error {
 	return nil
 }
 
+// Função para atualizar uma empresa ou alterar, busca pelo ID na rota
 func (c *controll) UpdateEmp(ctx *gin.Context) error {
 	var empresa tipos.Empresa
 	erro := ctx.ShouldBind(&empresa)
@@ -62,6 +64,7 @@ func (c *controll) UpdateEmp(ctx *gin.Context) error {
 	return nil
 }
 
+// Função para deletar uma empresa, busca pelo ID na rota
 func (c *controll) DeleteEmp(ctx *gin.Context) error {
 	var empresa tipos.Empresa
 	id, erro := strconv.ParseInt(ctx.Param("id"), 0, 0)

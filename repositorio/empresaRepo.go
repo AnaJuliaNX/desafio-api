@@ -23,7 +23,7 @@ func NewEmpRepositorio() EmpRepositorio {
 	if erro != nil {
 		log.Fatal("Falha ao estabeler a conexão com o banco de dados")
 	}
-	db.AutoMigrate(&tipos.Empresa{})
+	db.AutoMigrate(&tipos.Empresa{}) //cria automaticamente os campos em uma tabela previamente criada
 	return &banCodeDados{
 		connection: db,
 	}

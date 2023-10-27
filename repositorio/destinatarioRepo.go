@@ -15,6 +15,7 @@ type DestRepositorio interface {
 	DeleteDest(dest tipos.Destinatario)
 }
 
+// Para fazer a conexão com o banco de dados, o escolhido foi o mysql
 type bancodeDados struct {
 	connection *gorm.DB
 }
@@ -24,7 +25,7 @@ func NewDestRepositorio() DestRepositorio {
 	if erro != nil {
 		log.Fatal("Falha ao estabeler a conexão com o banco de dados")
 	}
-	db.AutoMigrate(&tipos.Destinatario{})
+	db.AutoMigrate(&tipos.Destinatario{}) //cria automaticamente os campos em uma tabela previamente criada
 	return &bancodeDados{
 		connection: db,
 	}

@@ -9,13 +9,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Função para gerar o token e fazer a validação dele
 func Autorizacao() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		//extrai o token  da solicitação http
 		const BERAER_SCHEMA = "Beraer"
 		authHeader := c.GetHeader("Autorização")
 		tokenString := authHeader[len(BERAER_SCHEMA):]
+		//ffaz a validação do token
 		token, erro := service.NewJWTService().ValidateToken(tokenString)
 
+		//Se o token for válido extra essas informações dele
 		if token.Valid {
 			claims := token.Claims.(jwt.MapClaims)
 			log.Println("Claims[Cnpj]: ", claims["cnpj"])
@@ -25,6 +29,7 @@ func Autorizacao() gin.HandlerFunc {
 			log.Println("Claims[IssuedAt]: ", claims["iat"])
 			log.Println("Claims[ExpireAt]: ", claims["exp"])
 		} else {
+			//Se for invalido exibe o erro, a mensagem e interrompe a execução
 			log.Println(erro)
 			c.AbortWithStatus(http.StatusUnauthorized)
 		}

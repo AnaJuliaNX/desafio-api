@@ -3,7 +3,7 @@ package tipos
 // Será usado para gerar o token e fazer o login
 type Empresa struct {
 	ID       int64  `json:"id"`
-	CNPJ     int64  `json:"cnpj"`
+	CNPJ     string `json:"cnpj"`
 	Password string `json:"password"`
 }
 

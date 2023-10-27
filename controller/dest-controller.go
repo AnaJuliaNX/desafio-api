@@ -29,6 +29,7 @@ func News(service service.DestService) DestController {
 	}
 }
 
+// Função para cadastrar um destinatario
 func (c *controler) SaveDest(ctx *gin.Context) error {
 	var destinatario tipos.Destinatario
 	erro := ctx.ShouldBindJSON(&destinatario)
@@ -43,6 +44,7 @@ func (c *controler) SaveDest(ctx *gin.Context) error {
 	return nil
 }
 
+// Função para atualizar oui editar o destinatário, busca pelo ID na rota
 func (c *controler) UpdateDest(ctx *gin.Context) error {
 	var destinatario tipos.Destinatario
 	erro := ctx.ShouldBind(&destinatario)
@@ -63,10 +65,12 @@ func (c *controler) UpdateDest(ctx *gin.Context) error {
 	return nil
 }
 
+// Função para achar todos os destinatarios cadastrados
 func (c *controler) FindAllDest() []tipos.Destinatario {
 	return c.service.FindAllDest()
 }
 
+// Função para deletar um destinatario, busca pelo ID na rota
 func (c *controler) DeleteDest(ctx *gin.Context) error {
 	var destinatario tipos.Destinatario
 	id, erro := strconv.ParseInt(ctx.Param("id"), 0, 0)

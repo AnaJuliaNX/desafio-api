@@ -29,6 +29,7 @@ func New(service service.ProdutoService) ProdController {
 	}
 }
 
+// Função para cadastrar um novo produto
 func (c *controller) SaveProd(ctx *gin.Context) error {
 	var produto tipos.Produto
 	erro := ctx.ShouldBindJSON(&produto)
@@ -43,6 +44,7 @@ func (c *controller) SaveProd(ctx *gin.Context) error {
 	return nil
 }
 
+// Função para atualizar um produto já cadastrado, busca pelo ID na rota
 func (c *controller) UpdateProd(ctx *gin.Context) error {
 	var produto tipos.Produto
 	erro := ctx.ShouldBind(&produto)
@@ -63,10 +65,12 @@ func (c *controller) UpdateProd(ctx *gin.Context) error {
 	return nil
 }
 
+// Função para listar todos os produtos cadastrados
 func (c *controller) FindAllProd() []tipos.Produto {
 	return c.service.FindAllProd()
 }
 
+// Função para deletar um produto, busca pelo Id na rota
 func (c *controller) DeleteProd(ctx *gin.Context) error {
 	var produto tipos.Produto
 	id, erro := strconv.ParseInt(ctx.Param("id"), 0, 0)

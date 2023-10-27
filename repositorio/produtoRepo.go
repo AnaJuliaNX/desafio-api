@@ -25,7 +25,7 @@ func NewProdutoRepositorio() ProdutoRepositorio {
 	if erro != nil {
 		log.Fatal("Falha ao estabeler a conexão com o banco de dados")
 	}
-	db.AutoMigrate(&tipos.Destinatario{})
+	db.AutoMigrate(&tipos.Produto{}) //cria automaticamente os campos em uma tabela previamente criada
 	return &bancoDedados{
 		connection: db,
 	}

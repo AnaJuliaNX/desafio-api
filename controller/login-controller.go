@@ -23,13 +23,13 @@ func NewLoginController(loginService service.LoginService, jwtService service.JW
 	}
 }
 
+// Função para fazer o login com as credenciais de acesso e gerar um token
 func (controller *loginController) Login(ctx *gin.Context) string {
 	var credenciais tipos.Empresa
 	erro := ctx.ShouldBind(&credenciais)
 	if erro != nil {
 		return ""
 	}
-
 	autenticado := controller.loginService.Login(credenciais.CNPJ, credenciais.Password)
 	if autenticado {
 		return controller.jwtService.GenerateToken(credenciais.CNPJ, credenciais.Password, true)

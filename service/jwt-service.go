@@ -9,12 +9,12 @@ import (
 )
 
 type JWTService interface {
-	GenerateToken(cnpj int64, senha string, admin bool) string
+	GenerateToken(cnpj string, senha string, admin bool) string
 	ValidateToken(tokenString string) (*jwt.Token, error)
 }
 
 type jwtCustomClaims struct {
-	CNPJ  int64  `json:"cnpj"`
+	CNPJ  string `json:"cnpj"`
 	Senha string `json:"senha"`
 	Admin bool   `json:"admin"`
 	jwt.StandardClaims
@@ -40,7 +40,7 @@ func getSecretKey() string {
 	return secret
 }
 
-func (jwtSrv *jwtService) GenerateToken(cnpj int64, password string, admin bool) string {
+func (jwtSrv *jwtService) GenerateToken(cnpj string, password string, admin bool) string {
 	claims := &jwtCustomClaims{
 		cnpj,
 		password,
