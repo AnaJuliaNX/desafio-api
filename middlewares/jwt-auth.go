@@ -13,9 +13,9 @@ import (
 func Autorizacao() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		//extrai o token  da solicitação http
-		const BERAER_SCHEMA = "Beraer"
-		authHeader := c.GetHeader("Autorização")
-		tokenString := authHeader[len(BERAER_SCHEMA):]
+		const BEARER_SCHEMA = "Bearer"
+		authHeader := c.GetHeader("Authorization")
+		tokenString := authHeader[len(BEARER_SCHEMA):]
 		//ffaz a validação do token
 		token, erro := service.NewJWTService().ValidateToken(tokenString)
 
@@ -23,7 +23,7 @@ func Autorizacao() gin.HandlerFunc {
 		if token.Valid {
 			claims := token.Claims.(jwt.MapClaims)
 			log.Println("Claims[Cnpj]: ", claims["cnpj"])
-			log.Println("Claims[Senha]: ", claims["senha"])
+			log.Println("Claims[Password]: ", claims["password"])
 			log.Println("Claims[admin]: ", claims["admin"])
 			log.Println("Claims[Issuer]: ", claims["iss"])
 			log.Println("Claims[IssuedAt]: ", claims["iat"])

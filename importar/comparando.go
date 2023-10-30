@@ -17,5 +17,5 @@ func main() {
 	defer aquivoXML.Close()
 }
 
-// type destinatario struct {
-// }
+type destinatario struct {
+}

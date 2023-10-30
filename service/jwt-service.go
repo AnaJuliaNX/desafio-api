@@ -9,14 +9,16 @@ import (
 )
 
 type JWTService interface {
-	GenerateToken(cnpj string, senha string, admin bool) string
+	//Método para a geração de um token
+	GenerateToken(cnpj string, password string, admin bool) string
+	//Método para a validação de um token
 	ValidateToken(tokenString string) (*jwt.Token, error)
 }
 
 type jwtCustomClaims struct {
-	CNPJ  string `json:"cnpj"`
-	Senha string `json:"senha"`
-	Admin bool   `json:"admin"`
+	CNPJ     string `json:"cnpj"`
+	Password string `json:"password"`
+	Admin    bool   `json:"admin"`
 	jwt.StandardClaims
 }
 
