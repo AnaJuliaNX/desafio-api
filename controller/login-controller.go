@@ -1,8 +1,8 @@
 package controller
 
 import (
+	"desafio1/dto"
 	"desafio1/service"
-	"desafio1/tipos"
 
 	"github.com/gin-gonic/gin"
 )
@@ -25,14 +25,14 @@ func NewLoginController(loginService service.LoginService, jwtService service.JW
 
 // Função para fazer o login com as credenciais de acesso e gerar um token
 func (controller *loginController) Login(ctx *gin.Context) string {
-	var credenciais tipos.Empresa
+	var credenciais dto.Credenciais
 	erro := ctx.ShouldBind(&credenciais)
 	if erro != nil {
 		return ""
 	}
-	autenticado := controller.loginService.Login(credenciais.CNPJ, credenciais.Password)
+	autenticado := controller.loginService.Login(credenciais.Cnpj, credenciais.Password)
 	if autenticado {
-		return controller.jwtService.GenerateToken(credenciais.CNPJ, credenciais.Password, true)
+		return controller.jwtService.GenerateToken(credenciais.Cnpj, credenciais.Password, true)
 	}
 	return ""
 }

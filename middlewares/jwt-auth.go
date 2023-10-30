@@ -2,6 +2,7 @@ package middlewares
 
 import (
 	"desafio1/service"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -13,9 +14,11 @@ import (
 func Autorizacao() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		//extrai o token  da solicitação http
-		const BEARER_SCHEMA = "Bearer"
+		const BEARER_SCHEMA = "Bearer "
 		authHeader := c.GetHeader("Authorization")
+
 		tokenString := authHeader[len(BEARER_SCHEMA):]
+		fmt.Println(tokenString)
 		//ffaz a validação do token
 		token, erro := service.NewJWTService().ValidateToken(tokenString)
 

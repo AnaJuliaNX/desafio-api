@@ -20,6 +20,7 @@ type Produto struct {
 // Cadastrar para conferir com os dados da XML
 type Destinatario struct {
 	ID         int64  `json:"id"`
+	CNPJ       string `json:"cnpj"`
 	Logradouro string `json:"lgr"`
 	Numero     int64  `json:"nro"`
 	Bairro     string `json:"bairro"`
