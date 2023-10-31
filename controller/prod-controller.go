@@ -36,11 +36,11 @@ func (c *controller) SaveProd(ctx *gin.Context) error {
 	if erro != nil {
 		return erro
 	}
-	erro = validate.Struct(produto)
+	erro = validate.Struct(produto) //faz a validação dos dados
 	if erro != nil {
 		return erro
 	}
-	c.service.SaveProd(produto)
+	c.service.SaveProd(produto) //se deu tudo certo na validação salva os dados do produto
 	return nil
 }
 

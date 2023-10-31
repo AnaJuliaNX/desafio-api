@@ -40,7 +40,7 @@ func (c *controler) SaveDest(ctx *gin.Context) error {
 	if erro != nil {
 		return erro
 	}
-	c.service.SaveDest(destinatario)
+	c.service.SaveDest(destinatario) //função que vai salvar o detinatário
 	return nil
 }
 
@@ -51,17 +51,17 @@ func (c *controler) UpdateDest(ctx *gin.Context) error {
 	if erro != nil {
 		return erro
 	}
-	id, erro := strconv.ParseInt(ctx.Param("id"), 0, 0)
+	id, erro := strconv.ParseInt(ctx.Param("id"), 0, 0) //pega o ID da rota
 	if erro != nil {
 		return erro
 	}
 	destinatario.ID = id
 
-	erro = validate.Struct(destinatario)
+	erro = validate.Struct(destinatario) //faz a validação dos dados
 	if erro != nil {
 		return erro
 	}
-	c.service.UpdateDest(destinatario)
+	c.service.UpdateDest(destinatario) //se deu tudo certo na validação atualiza os dados do destinatario
 	return nil
 }
 
@@ -73,11 +73,11 @@ func (c *controler) FindAllDest() []tipos.Destinatario {
 // Função para deletar um destinatario, busca pelo ID na rota
 func (c *controler) DeleteDest(ctx *gin.Context) error {
 	var destinatario tipos.Destinatario
-	id, erro := strconv.ParseInt(ctx.Param("id"), 0, 0)
+	id, erro := strconv.ParseInt(ctx.Param("id"), 0, 0) //pega o id na rota
 	if erro != nil {
 		return erro
 	}
 	destinatario.ID = id
-	c.service.DeleteDest(destinatario)
+	c.service.DeleteDest(destinatario) //deleta os dados de um destinatario especificado pelo ID
 	return nil
 }

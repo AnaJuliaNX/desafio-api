@@ -10,7 +10,7 @@ type Empresa struct {
 // Cadastrar o produto
 type Produto struct {
 	ID            int64   `json:"cProd"`
-	Código        int64   `json:"cEAN"`
+	Codigo        int64   `json:"cEAN"`
 	Descricao     string  `json:"xProd"`
 	UniMedida     string  `json:"uCom"`
 	Quantidade    int64   `json:"qCom"`
