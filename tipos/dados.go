@@ -9,12 +9,12 @@ type Empresa struct {
 
 // Cadastrar o produto
 type Produto struct {
-	ID            int64   `json:"cProd"`
-	Codigo        int64   `json:"cEAN"`
-	Descricao     string  `json:"xProd"`
-	UniMedida     string  `json:"uCom"`
-	Quantidade    int64   `json:"qCom"`
-	ValorUnitario float64 `json:"vUnCom"`
+	ID            int64  `json:"cProd"`
+	Codigo        string `json:"cEAN"`
+	Descricao     string `json:"xProd"`
+	UniMedida     string `json:"uCom"`
+	Quantidade    string `json:"qCom"`
+	ValorUnitario string `json:"vUnCom"`
 }
 
 // Cadastrar para conferir com os dados da XML
@@ -22,11 +22,15 @@ type Destinatario struct {
 	ID         int64  `json:"id"`
 	CNPJ       string `json:"cnpj"`
 	Logradouro string `json:"lgr"`
-	Numero     int64  `json:"nro"`
+	Numero     string `json:"nro"`
 	Bairro     string `json:"bairro"`
 	Municipio  string `json:"xMun"`
 	UF         string `json:"uf"`
-	CEP        int64  `json:"cep"`
+	CEP        string `json:"cep"`
 	Pais       string `json:"xPais"`
-	Telefone   int64  `json:"fone"`
+	Telefone   string `json:"fone"`
+}
+
+type Emitente struct {
+	CNPJ string
 }

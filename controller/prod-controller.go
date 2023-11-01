@@ -51,7 +51,7 @@ func (c *controller) UpdateProd(ctx *gin.Context) error {
 	if erro != nil {
 		return erro
 	}
-	id, erro := strconv.ParseInt(ctx.Param("id"), 0, 0)
+	id, erro := strconv.ParseInt(ctx.Param("id"), 0, 0) //busca um produto especificado pelo ID na rota 
 	if erro != nil {
 		return erro
 	}

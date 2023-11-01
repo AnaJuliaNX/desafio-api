@@ -140,5 +140,4 @@ func main() {
 	if port == "" {
 		port = "4000"
 	}
-	server.Run(":" + port)
 }

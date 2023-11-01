@@ -1,72 +1,86 @@
-package main
+package importar
 
 import (
 	"encoding/xml"
 	"fmt"
 	"io"
-	"net/http"
+	"log"
+	"os"
 )
 
-type Allmap struct {
-	Emits []Emit `xml:"emit"`
-	Dests []Dest `xml:"dest"`
-	Prods []Prod `xml:"prod"`
+// A struct NFe só da certo se estiver implementada nessa struct
+type NfeProc struct {
+	NFe NFe `xml:"NFe"`
+}
+
+// A struct InfNFe só da certo se estiver implementada nessa struct
+type NFe struct {
+	InfNFe InfNFe `xml:"infNFe"`
+}
+
+// As structs Emit, Dest e Det só da certo se estiverem implementadas nessa struct
+type InfNFe struct {
+	Emit Emit `xml:"emit"`
+	Dest Dest `xml:"dest"`
+	Det  Det  `xml:"det"`
 }
 
 type Emit struct {
-	CNPJ       int64  `xml:"cnpj"`
+	CNPJ       string `xml:"CNPJ"`
 	Nome       string `xml:"xNome"`
-	Logradouro string `xml:"lgr"`
-	Numero     int64  `xml:"nro"`
-	Bairro     string `xml:"bairro"`
-	Municipio  string `xml:"xMun"`
-	UF         string `xml:"uf"`
-	CEP        int64  `xml:"cep"`
-	Pais       string `xml:"xPais"`
-	Telefone   int64  `xml:"fone"`
+	Logradouro string `xml:"enderEmit>Lgr"`
+	Numero     string `xml:"enderEmit>nro"`
+	Bairro     string `xml:"enderEmit>xBairro"`
+	Municipio  string `xml:"enderEmit>xMun"`
+	UF         string `xml:"enderEmit>UF"`
+	CEP        string `xml:"enderEmit>CEP"`
+	Pais       string `xml:"enderEmit>Pais"`
+	Telefone   string `xml:"enderEmit>fone"`
 }
 
 type Dest struct {
-	CNPJ       int64  `xml:"cnpj"`
-	Nome       string `xml:"xNome"`
-	Logradouro string `xml:"lgr"`
-	Numero     int64  `xml:"nro"`
-	Bairro     string `xml:"bairro"`
-	Municipio  string `xml:"xMun"`
-	UF         string `xml:"uf"`
-	CEP        int64  `xml:"cep"`
-	Pais       string `xml:"xPais"`
-	Telefone   int64  `xml:"fone"`
+	CNPJ       string `xml:"CNPJ"`
+	Logradouro string `xml:"enderDest>xLgr"`
+	Numero     string `xml:"enderDest>nro"`
+	Bairro     string `xml:"enderDest>xBairro"`
+	Municipio  string `xml:"enderDest>xMun"`
+	UF         string `xml:"enderDest>UF"`
+	CEP        string `xml:"enderDest>CEP"`
+	Pais       string `xml:"enderDest>xPais"`
+	Telefone   string `xml:"enderDest>fone"`
+}
+
+type Det struct {
+	Nitem string `xml:"nItem,attr"`
+	Prod  []Prod `xml:"prod"`
 }
 
 type Prod struct {
-	CodigoID      int64   `xml:"cProd"`
-	Codigo        int64   `xml:"cEAN"`
-	Descricao     string  `xml:"xProd"`
-	UnidMedida    string  `xml:"uCom"`
-	Quantidade    int64   `xml:"qCom"`
-	ValorUnitario float64 `xml:"vUnCom"`
+	Codigo        string `xml:"cEAN"`
+	Descricao     string `xml:"xProd"`
+	UniMedida     string `xml:"uCom"`
+	Quantidade    string `xml:"qCom"`
+	ValorUnitario string `xml:"vUnCom"`
 }
 
-// Tentativa de importar, ler e executar sobre o arquivo xml
-func main() {
-	resp, _ := http.Get("/home/ana/Downloads/41230910541434000152550010000012411749316397-nfe.xml")
-	bytes, _ := io.ReadAll(resp.Body)
-	resp.Body.Close()
+func Importar() {
+	arquivo, erro := os.Open("/home/ana/Downloads/41230910541434000152550010000012411749316397-nfe.xml")
+	if erro != nil {
+		log.Fatalf("Erro ao abrir o arqivo XML")
+	}
+	defer arquivo.Close()
 
-	var teste Allmap
-	xml.Unmarshal(bytes, &teste)
+	lerarquivo, erro1 := io.ReadAll(arquivo)
+	if erro1 != nil {
+		log.Fatalf("Erro ao ler o conteúdo do arquivo")
+	}
 
-	fmt.Println(teste.Dests)
-
-	// 	aquivoXML, erro := os.Open("/home/ana/Downloads/41230910541434000152550010000012411749316397-nfe.xml")
-	// 	if erro != nil {
-	// 		log.Fatalf("Erro ao abrir o arquivo xml")
-	// 	} else {
-	// 		fmt.Println("Arquivo aberto com sucesso")
-	// 	}
-	// 	defer aquivoXML.Close()
-	// }
-
-	// type destinatario struct {
+	var XML1 NfeProc
+	erro2 := xml.Unmarshal(lerarquivo, &XML1)
+	if erro2 != nil {
+		log.Fatalf("Erro ao fazer o Unmarshal")
+	}
+	fmt.Println(XML1.NFe.InfNFe.Emit)
+	fmt.Println(XML1.NFe.InfNFe.Dest)
+	fmt.Println(XML1.NFe.InfNFe.Det)
 }
