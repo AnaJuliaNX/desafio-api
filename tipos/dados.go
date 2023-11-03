@@ -15,6 +15,10 @@ type Produto struct {
 	UniMedida     string `json:"uCom"`
 	Quantidade    string `json:"qCom"`
 	ValorUnitario string `json:"vUnCom"`
+	Frete         string `json:"vFrete"`
+	Seguro        string `json:"vSeg"`
+	Desconto      string `json:"vDesc"`
+	Outro         string `json:"vOutro"`
 }
 
 // Cadastrar para conferir com os dados da XML

@@ -24,7 +24,6 @@ type InfNFe struct {
 	Dest Dest `xml:"dest"`
 	Det  Det  `xml:"det"`
 }
-
 type Emit struct {
 	CNPJ       string `xml:"CNPJ"`
 	Nome       string `xml:"xNome"`
@@ -61,12 +60,16 @@ type Prod struct {
 	UniMedida     string `xml:"uCom"`
 	Quantidade    string `xml:"qCom"`
 	ValorUnitario string `xml:"vUnCom"`
+	Frete         string `xml:"vFrete"` //somatório do frete dos produtos
+	Seguro        string `xml:"vSeg"`   //somatório do valor do seguro de todos os produtos
+	Desconto      string `xml:"vDesc"`  //somátorio dos descontos de todos os produtos
+	Outro         string `xml:"vOutro"` //outros valores que podem constar também
 }
 
 func Importar() {
 	arquivo, erro := os.Open("/home/ana/Downloads/41230910541434000152550010000012411749316397-nfe.xml")
 	if erro != nil {
-		log.Fatalf("Erro ao abrir o arqivo XML")
+		log.Fatalf("Erro ao abrir o arquivo XML")
 	}
 	defer arquivo.Close()
 
@@ -80,7 +83,8 @@ func Importar() {
 	if erro2 != nil {
 		log.Fatalf("Erro ao fazer o Unmarshal")
 	}
+
 	fmt.Println(XML1.NFe.InfNFe.Emit)
 	fmt.Println(XML1.NFe.InfNFe.Dest)
-	fmt.Println(XML1.NFe.InfNFe.Det)
+	fmt.Println(XML1.NFe.InfNFe.Det.Prod)
 }
